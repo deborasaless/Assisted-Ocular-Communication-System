@@ -2,6 +2,11 @@
 from imutils import face_utils
 import dlib
 import cv2
+
+
+#################
+# Esse código aplica os landmarkings na face pegando o input da webcam
+#################
  
 # Vamos inicializar um detector de faces (HOG) para então
 # fazer a predição dos pontos da nossa face.

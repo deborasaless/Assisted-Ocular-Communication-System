@@ -1,5 +1,9 @@
 import cv2
 
+#################
+# Esse código é um script simples de como cortar a região dos olhos, já sabendo as coordenadas que eles estão
+#################
+
 # Carregue a imagem
 image = cv2.imread("foto-perfil.jpeg")
 
