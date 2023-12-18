@@ -2,6 +2,7 @@ import cv2 as cv
 import numpy as np
 import mediapipe as mp
 import tkinter as tk
+import time
 
 mp_face_mesh = mp.solutions.face_mesh
 
@@ -21,43 +22,49 @@ with mp_face_mesh.FaceMesh(
 
     root = tk.Tk()
 
-    # Configurando a janela para ocupar toda a tela
+
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
-    root.geometry(f"{screen_width}x{screen_height}+0+0")  # Define a largura e altura da janela e posição inicial (0, 0)
+    root.geometry(f"{screen_width}x{screen_height}+0+0")
 
     root.title("Direção do Olhar")
 
     label_direction = tk.Label(root, text="Direção do Olhar: Aguardando Dados")
     label_direction.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
-    # Adiciona os botões iniciais
+
     buttons = ['A', 'B', 'C', 'D', 'E', '->']
     button_frame = tk.Frame(root)
     button_frame.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
     for i, button_text in enumerate(buttons):
         button = tk.Button(button_frame, text=button_text, command=lambda text=button_text: on_button_click(text),
-                           width=70, height=25)  # Ajusta a largura e altura do botão
+                           width=70, height=25)
         button.grid(row=i // 3, column=i % 3, sticky=tk.NSEW)
 
     entry_field = tk.Entry(root, width=30)
-    entry_field.pack(side=tk.TOP, fill=tk.X, padx=10, pady=5)  # Use fill=tk.X para preencher horizontalmente
-    entry_field.config(font=('Helvetica', 14))  # Ajuste a altura aqui alterando o tamanho da fonte
+    entry_field.pack(side=tk.TOP, fill=tk.X, padx=10, pady=5)  
+    entry_field.config(font=('Helvetica', 14))
     
     current_screen = 1
 
+    def close_other_screens(current_screen):
+        for win in root.winfo_children():
+            if isinstance(win, tk.Toplevel) and win != current_screen:
+                win.destroy()
+            
     def on_button_click(button_text):
         global current_screen
         if button_text == '->':
-            show_second_screen()
+            show_next_screen(current_screen)
         else:
             entry_field.insert(tk.END, button_text)
 
     def show_second_screen():
         global current_screen
         current_screen = 2
-        # Cria uma nova tela com os botões F, G, H, I, J, ->
+        close_other_screens(current_screen)
+
         second_screen = tk.Toplevel(root)
         second_screen.title("Segunda Tela")
 
@@ -67,165 +74,303 @@ with mp_face_mesh.FaceMesh(
 
         for i, button_text in enumerate(new_buttons):
             button = tk.Button(new_button_frame, text=button_text,
-                               command=lambda text=button_text: on_button_click(text, second_screen),
-                               width=70, height=25)  # Ajusta a largura e altura do botão
+                               command=lambda text=button_text: on_button_click(text),
+                               width=70, height=25)
             button.grid(row=i // 3, column=i % 3, sticky=tk.NSEW)
             
     def show_third_screen():
         global current_screen
         current_screen = 3
-        # Cria uma nova tela com os botões F, G, H, I, J, ->
-        second_screen = tk.Toplevel(root)
-        second_screen.title("Segunda Tela")
+        close_other_screens(current_screen)
+        third_screen = tk.Toplevel(root)
+        third_screen.title("Terceira Tela")
 
         new_buttons = ['K', 'L', 'M', 'N', 'O', '->']
-        new_button_frame = tk.Frame(second_screen)
+        new_button_frame = tk.Frame(third_screen)
         new_button_frame.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
         for i, button_text in enumerate(new_buttons):
             button = tk.Button(new_button_frame, text=button_text,
-                               command=lambda text=button_text: on_button_click(text, second_screen),
-                               width=70, height=25)  # Ajusta a largura e altura do botão
+                               command=lambda text=button_text: on_button_click(text),
+                               width=70, height=25)
             button.grid(row=i // 3, column=i % 3, sticky=tk.NSEW)
             
     def show_fourth_screen():
         global current_screen
         current_screen = 4
-        # Cria uma nova tela com os botões F, G, H, I, J, ->
-        second_screen = tk.Toplevel(root)
-        second_screen.title("Segunda Tela")
+        close_other_screens(current_screen)
+
+        fourth_screen = tk.Toplevel(root)
+        fourth_screen.title("Quarta Tela")
 
         new_buttons = ['P', 'Q', 'R', 'S', 'T', '->']
-        new_button_frame = tk.Frame(second_screen)
+        new_button_frame = tk.Frame(fourth_screen)
         new_button_frame.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
         for i, button_text in enumerate(new_buttons):
             button = tk.Button(new_button_frame, text=button_text,
-                               command=lambda text=button_text: on_button_click(text, second_screen),
-                               width=70, height=25)  # Ajusta a largura e altura do botão
+                               command=lambda text=button_text: on_button_click(text),
+                               width=70, height=25)
             button.grid(row=i // 3, column=i % 3, sticky=tk.NSEW)
             
     def show_5_screen():
         global current_screen
         current_screen = 5
-        # Cria uma nova tela com os botões F, G, H, I, J, ->
-        second_screen = tk.Toplevel(root)
-        second_screen.title("Segunda Tela")
+        close_other_screens(current_screen)
+
+        five_screen = tk.Toplevel(root)
+        five_screen.title("Quinta Tela")
 
         new_buttons = ['U', 'V', 'W', 'X', 'Y', '->']
-        new_button_frame = tk.Frame(second_screen)
+        new_button_frame = tk.Frame(five_screen)
         new_button_frame.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
         for i, button_text in enumerate(new_buttons):
             button = tk.Button(new_button_frame, text=button_text,
-                               command=lambda text=button_text: on_button_click(text, second_screen),
-                               width=70, height=25)  # Ajusta a largura e altura do botão
+                               command=lambda text=button_text: on_button_click(text),
+                               width=70, height=25)
             button.grid(row=i // 3, column=i % 3, sticky=tk.NSEW)
             
     def show_6_screen():
         global current_screen
         current_screen = 6
-        # Cria uma nova tela com os botões F, G, H, I, J, ->
-        second_screen = tk.Toplevel(root)
-        second_screen.title("Segunda Tela")
+        close_other_screens(current_screen)
+        six_screen = tk.Toplevel(root)
+        six_screen.title("Sexta Tela")
 
         new_buttons = ['Z', 'Z', 'Z', 'Z', 'Z', '->']
-        new_button_frame = tk.Frame(second_screen)
+        new_button_frame = tk.Frame(six_screen)
         new_button_frame.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
         for i, button_text in enumerate(new_buttons):
             button = tk.Button(new_button_frame, text=button_text,
-                               command=lambda text=button_text: on_button_click(text, second_screen),
-                               width=70, height=25)  # Ajusta a largura e altura do botão
+                               command=lambda text=button_text: on_button_click(text),
+                               width=70, height=25)
             button.grid(row=i // 3, column=i % 3, sticky=tk.NSEW)
 
     def show_first_screen():
         global current_screen
         current_screen = 1
-        # Lógica para a primeira tela
+        close_other_screens(current_screen)
         pass
+    
+    def timer():
+        tempo_inicial = time.time()
+
+        def time_count():
+            return time.time() - tempo_inicial
+        
+        if time_count() > 3:
+            return 1
+        else:
+            return 0
 
     def on_button_text(button_text):
         if button_text == '1' and current_screen==1:
-            on_button_click('A')
+            while button_text == '1' and current_screen==1:
+                time=timer()
+                if time == 1:
+                    on_button_click('A')
+                    
         elif button_text == '2' and current_screen==1:
-            on_button_click('B')
+            while button_text == '2' and current_screen==1:
+                time=timer()
+                if time == 1:
+                    on_button_click('B')
+                    
         elif button_text == '3' and current_screen==1:
-            on_button_click('C')
+            while button_text == '3' and current_screen==1:
+                time=timer()
+                if time == 1:
+                    on_button_click('C')
+                    
         elif button_text == '4' and current_screen==1:
-            on_button_click('D')
+            while button_text == '4' and current_screen==1:
+                time=timer()
+                if time == 1:
+                    on_button_click('D')
+
         elif button_text == '5' and current_screen==1:
-            on_button_click('E')
-        elif button_text == '6':
-            show_second_screen()
+            while button_text == '5' and current_screen==1:
+                time=timer()
+                if time == 1:
+                    on_button_click('E')
+                    
+            
+        if button_text == '6':
+            while button_text == '6':
+                time=timer()
+                if time == 1:
+                    show_next_screen(current_screen)
+
             
         elif button_text == '1' and current_screen==2:
-            on_button_click('F')
+            while button_text == '1' and current_screen==2:
+                time=timer()
+                if time == 1:
+                    on_button_click('F')
+            
         elif button_text == '2' and current_screen==2:
-            on_button_click('G')
+            while button_text == '2' and current_screen==2:
+                time=timer()
+                if time == 1:
+                    on_button_click('G')
+            
         elif button_text == '3' and current_screen==2:
-            on_button_click('H')
+            while button_text == '3' and current_screen==2:
+                time=timer()
+                if time == 1:
+                    on_button_click('H')
+            
         elif button_text == '4' and current_screen==2:
-            on_button_click('I')
+            while button_text == '4' and current_screen==2:
+                time=timer()
+                if time == 1:
+                    on_button_click('I')
+            
         elif button_text == '5' and current_screen==2:
-            on_button_click('J')
+            while button_text == '5' and current_screen==2:
+                time=timer()
+                if time == 1:
+                    on_button_click('J')
+            
             
         elif button_text == '1' and current_screen==3:
-            on_button_click('K')
+            while button_text == '1' and current_screen==3:
+                time=timer()
+                if time == 1:
+                    on_button_click('K')
+            
         elif button_text == '2' and current_screen==3:
-            on_button_click('L')
+            while button_text == '2' and current_screen==3:
+                time=timer()
+                if time == 1:
+                    on_button_click('L')
+            
         elif button_text == '3' and current_screen==3:
-            on_button_click('M')
+            while button_text == '3' and current_screen==3:
+                time=timer()
+                if time == 1:
+                    on_button_click('M')
+            
         elif button_text == '4' and current_screen==3:
-            on_button_click('N')
+            while button_text == '4' and current_screen==3:
+                time=timer()
+                if time == 1:
+                    on_button_click('N')
+            
         elif button_text == '5' and current_screen==3:
-            on_button_click('O')
+            while button_text == '5' and current_screen==3:
+                time=timer()
+                if time == 1:
+                    on_button_click('O')
+            
             
         elif button_text == '1' and current_screen==4:
-            on_button_click('P')
+            while button_text == '1' and current_screen==4:
+                time=timer()
+                if time == 1:
+                    on_button_click('P')
+            
         elif button_text == '2' and current_screen==4:
-            on_button_click('Q')
+            while button_text == '2' and current_screen==4:
+                time=timer()
+                if time == 1:
+                    on_button_click('Q')
+            
         elif button_text == '3' and current_screen==4:
-            on_button_click('R')
+            while button_text == '3' and current_screen==4:
+                time=timer()
+                if time == 1:
+                    on_button_click('R')
+            
         elif button_text == '4' and current_screen==4:
-            on_button_click('S')
+            while button_text == '4' and current_screen==4:
+                time=timer()
+                if time == 1:
+                    on_button_click('S')
+            
         elif button_text == '5' and current_screen==4:
-            on_button_click('T')
+            while button_text == '5' and current_screen==4:
+                time=timer()
+                if time == 1:
+                    on_button_click('T')
+            
             
         elif button_text == '1' and current_screen==5:
-            on_button_click('U')
+            while button_text == '1' and current_screen==5:
+                time=timer()
+                if time == 1:
+                    on_button_click('U')
+            
         elif button_text == '2' and current_screen==5:
-            on_button_click('V')
+            while button_text == '2' and current_screen==5:
+                time=timer()
+                if time == 1:
+                    on_button_click('V')
+            
         elif button_text == '3' and current_screen==5:
-            on_button_click('W')
+            while button_text == '3' and current_screen==5:
+                time=timer()
+                if time == 1:
+                    on_button_click('W')
+            
         elif button_text == '4' and current_screen==5:
-            on_button_click('X')
+            while button_text == '4' and current_screen==5:
+                time=timer()
+                if time == 1:
+                    on_button_click('X')
+            
         elif button_text == '5' and current_screen==5:
-            on_button_click('Y')
+            while button_text == '5' and current_screen==5:
+                time=timer()
+                if time == 1:
+                    on_button_click('Y')
+            
             
         elif button_text == '1' and current_screen==6:
-            on_button_click('Z')
+            while button_text == '1' and current_screen==6:
+                time=timer()
+                if time == 1:
+                    on_button_click('Z')
+            
         elif button_text == '2' and current_screen==6:
-            on_button_click('Z')
+            while button_text == '2' and current_screen==6:
+                time=timer()
+                if time == 1:
+                    on_button_click('Z')
+            
         elif button_text == '3' and current_screen==6:
-            on_button_click('Z')
+            while button_text == '3' and current_screen==6:
+                time=timer()
+                if time == 1:
+                    on_button_click('Z')
+            
         elif button_text == '4' and current_screen==6:
-            on_button_click('Z')
+            while button_text == '4' and current_screen==6:
+                time=timer()
+                if time == 1:
+                    on_button_click('Z')
+            
         elif button_text == '5' and current_screen==6:
-            on_button_click('Z')
+            while button_text == '5' and current_screen==6:
+                time=timer()
+                if time == 1:
+                    on_button_click('Z')
+            
             
     def show_next_screen(current_screen):
-        if current_screen=='1':
+        if current_screen==1:
             show_second_screen()
-        elif current_screen=='2':
+        elif current_screen==2:
             show_third_screen()
-        elif current_screen=='3':
+        elif current_screen==3:
             show_fourth_screen()
-        elif current_screen=='4':
+        elif current_screen==4:
             show_5_screen()
-        elif current_screen=='5':
+        elif current_screen==5:
             show_6_screen()
-        elif current_screen=='6':
+        elif current_screen==6:
             show_first_screen()
 
     def update_direction():
