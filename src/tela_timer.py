@@ -19,9 +19,13 @@ with mp_face_mesh.FaceMesh(
         min_detection_confidence=0.5,
         min_tracking_confidence=0.5
 ) as face_mesh:
-
+    
     root = tk.Tk()
 
+    def close_program():
+        root.destroy()
+        cap.release()
+        cv.destroyAllWindows()
 
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
@@ -32,69 +36,128 @@ with mp_face_mesh.FaceMesh(
     label_direction = tk.Label(root, text="Direção do Olhar: Aguardando Dados")
     label_direction.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
+    bottom_frame = tk.Frame(root)
+    bottom_frame.pack(side=tk.BOTTOM, fill=tk.X)
 
+    entry_field = tk.Entry(bottom_frame, width=30)
+    entry_field.grid(row=0, column=0, padx=(10, 10), pady=5, sticky="ew")
+    entry_field.config(font=('Helvetica', 14))
+
+    close_button = tk.Button(bottom_frame, text="Fechar", command=close_program, width=20, height=2)
+    close_button.grid(row=0, column=1, padx=(0, 10), pady=5, sticky="ew")
+
+    bottom_frame.columnconfigure(0, weight=5)
+    bottom_frame.columnconfigure(1, weight=0)
+    
     buttons = ['A', 'B', 'C', 'D', 'E', '->']
     button_frame = tk.Frame(root)
+    button_frame.grid_rowconfigure(0, weight=1)
+    button_frame.grid_columnconfigure(0, weight=1)
     button_frame.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
     for i, button_text in enumerate(buttons):
-        button = tk.Button(button_frame, text=button_text, command=lambda text=button_text: on_button_click(text),
-                           width=70, height=25)
+        button = tk.Button(button_frame, text=button_text,
+                            command=lambda text=button_text: on_button_click(text),
+                            width=17, height=6)
+        button['font'] = ('Helvetica', 34)
         button.grid(row=i // 3, column=i % 3, sticky=tk.NSEW)
 
-    entry_field = tk.Entry(root, width=30)
-    entry_field.pack(side=tk.TOP, fill=tk.X, padx=10, pady=5)  
-    entry_field.config(font=('Helvetica', 14))
-    
     current_screen = 1
+    shared_text = ""
 
     def close_other_screens(current_screen):
         for win in root.winfo_children():
             if isinstance(win, tk.Toplevel) and win != current_screen:
-                win.destroy()
+                win.destroy()        
             
     def on_button_click(button_text):
-        global current_screen
+        global current_screen, shared_text
+        current_entry_field = get_current_entry_field(current_screen)
         if button_text == '->':
             show_next_screen(current_screen)
         else:
-            entry_field.insert(tk.END, button_text)
+            shared_text += button_text
+            current_entry_field.insert(tk.END, button_text)
+            entry_field.delete(0, tk.END)
+            entry_field.insert(tk.END, shared_text)
+
+    def get_current_entry_field(current_screen):
+        if current_screen == 1:
+            return entry_field
+        elif current_screen == 2:
+            return entry_field_screen2
+        elif current_screen == 3:
+            return entry_field_screen3
+        elif current_screen == 4:
+            return entry_field_screen4
+        elif current_screen == 5:
+            return entry_field_screen5
+        elif current_screen == 6:
+            return entry_field_screen6
+        else:
+            return entry_field
 
     def show_second_screen():
         global current_screen
         current_screen = 2
+        root.withdraw()
         close_other_screens(current_screen)
-
         second_screen = tk.Toplevel(root)
         second_screen.title("Segunda Tela")
+        
+        second_screen.attributes("-fullscreen", True)
+
+        global entry_field_screen2
+        entry_field_screen2 = tk.Entry(second_screen, width=30)
+        entry_field_screen2.grid_rowconfigure(0, weight=1)
+        entry_field_screen2.grid_columnconfigure(0, weight=1)
+        entry_field_screen2.pack(side=tk.BOTTOM, fill=tk.X, padx=10, pady=5)
+        entry_field_screen2.config(font=('Helvetica', 14))
+        entry_field_screen2.insert(tk.END, shared_text)
 
         new_buttons = ['F', 'G', 'H', 'I', 'J', '->']
         new_button_frame = tk.Frame(second_screen)
+        new_button_frame.grid_rowconfigure(0, weight=1)
+        new_button_frame.grid_columnconfigure(0, weight=1)
         new_button_frame.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
         for i, button_text in enumerate(new_buttons):
             button = tk.Button(new_button_frame, text=button_text,
                                command=lambda text=button_text: on_button_click(text),
-                               width=70, height=25)
+                               width=17, height=6)
+            button['font'] = ('Helvetica', 34)
             button.grid(row=i // 3, column=i % 3, sticky=tk.NSEW)
-            
+
     def show_third_screen():
         global current_screen
         current_screen = 3
         close_other_screens(current_screen)
         third_screen = tk.Toplevel(root)
         third_screen.title("Terceira Tela")
+        
+        third_screen.attributes("-fullscreen", True)
+
+        global entry_field_screen3
+        entry_field_screen3 = tk.Entry(third_screen, width=30)
+        entry_field_screen3.grid_rowconfigure(0, weight=1)
+        entry_field_screen3.grid_columnconfigure(0, weight=1)
+        entry_field_screen3.pack(side=tk.BOTTOM, fill=tk.X, padx=10, pady=5)
+        entry_field_screen3.config(font=('Helvetica', 14))
+        entry_field_screen3.insert(tk.END, shared_text)
 
         new_buttons = ['K', 'L', 'M', 'N', 'O', '->']
         new_button_frame = tk.Frame(third_screen)
+        new_button_frame.grid_rowconfigure(0, weight=1)
+        new_button_frame.grid_columnconfigure(0, weight=1)
         new_button_frame.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
         for i, button_text in enumerate(new_buttons):
             button = tk.Button(new_button_frame, text=button_text,
                                command=lambda text=button_text: on_button_click(text),
-                               width=70, height=25)
+                               width=17, height=6)
+            button['font'] = ('Helvetica', 34)
             button.grid(row=i // 3, column=i % 3, sticky=tk.NSEW)
-            
+
     def show_fourth_screen():
         global current_screen
         current_screen = 4
@@ -102,17 +165,30 @@ with mp_face_mesh.FaceMesh(
 
         fourth_screen = tk.Toplevel(root)
         fourth_screen.title("Quarta Tela")
+        
+        fourth_screen.attributes("-fullscreen", True)
+
+        global entry_field_screen4
+        entry_field_screen4 = tk.Entry(fourth_screen, width=30)
+        entry_field_screen4.grid_rowconfigure(0, weight=1)
+        entry_field_screen4.grid_columnconfigure(0, weight=1)
+        entry_field_screen4.pack(side=tk.BOTTOM, fill=tk.X, padx=10, pady=5)
+        entry_field_screen4.config(font=('Helvetica', 14))
+        entry_field_screen4.insert(tk.END, shared_text)
 
         new_buttons = ['P', 'Q', 'R', 'S', 'T', '->']
         new_button_frame = tk.Frame(fourth_screen)
+        new_button_frame.grid_rowconfigure(0, weight=1)
+        new_button_frame.grid_columnconfigure(0, weight=1)
         new_button_frame.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
         for i, button_text in enumerate(new_buttons):
             button = tk.Button(new_button_frame, text=button_text,
                                command=lambda text=button_text: on_button_click(text),
-                               width=70, height=25)
+                               width=17, height=6)
+            button['font'] = ('Helvetica', 34)
             button.grid(row=i // 3, column=i % 3, sticky=tk.NSEW)
-            
+
     def show_5_screen():
         global current_screen
         current_screen = 5
@@ -120,38 +196,65 @@ with mp_face_mesh.FaceMesh(
 
         five_screen = tk.Toplevel(root)
         five_screen.title("Quinta Tela")
+        
+        five_screen.attributes("-fullscreen", True)
+
+        global entry_field_screen5
+        entry_field_screen5 = tk.Entry(five_screen, width=30)
+        entry_field_screen5.grid_rowconfigure(0, weight=1)
+        entry_field_screen5.grid_columnconfigure(0, weight=1)
+        entry_field_screen5.pack(side=tk.BOTTOM, fill=tk.X, padx=10, pady=5)
+        entry_field_screen5.config(font=('Helvetica', 14))
+        entry_field_screen5.insert(tk.END, shared_text)
 
         new_buttons = ['U', 'V', 'W', 'X', 'Y', '->']
         new_button_frame = tk.Frame(five_screen)
+        new_button_frame.grid_rowconfigure(0, weight=1)
+        new_button_frame.grid_columnconfigure(0, weight=1)
         new_button_frame.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
         for i, button_text in enumerate(new_buttons):
             button = tk.Button(new_button_frame, text=button_text,
                                command=lambda text=button_text: on_button_click(text),
-                               width=70, height=25)
+                               width=17, height=6)
+            button['font'] = ('Helvetica', 34)
             button.grid(row=i // 3, column=i % 3, sticky=tk.NSEW)
-            
+
     def show_6_screen():
         global current_screen
         current_screen = 6
         close_other_screens(current_screen)
         six_screen = tk.Toplevel(root)
         six_screen.title("Sexta Tela")
+        
+        six_screen.attributes("-fullscreen", True)
+
+        global entry_field_screen6
+        entry_field_screen6 = tk.Entry(six_screen, width=30)
+        entry_field_screen6.grid_rowconfigure(0, weight=1)
+        entry_field_screen6.grid_columnconfigure(0, weight=1)
+        entry_field_screen6.pack(side=tk.BOTTOM, fill=tk.X, padx=10, pady=5)
+        entry_field_screen6.config(font=('Helvetica', 14))
+        entry_field_screen6.insert(tk.END, shared_text)
 
         new_buttons = ['Z', 'Z', 'Z', 'Z', 'Z', '->']
         new_button_frame = tk.Frame(six_screen)
+        new_button_frame.grid_rowconfigure(0, weight=1)
+        new_button_frame.grid_columnconfigure(0, weight=1)
         new_button_frame.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
         for i, button_text in enumerate(new_buttons):
             button = tk.Button(new_button_frame, text=button_text,
                                command=lambda text=button_text: on_button_click(text),
-                               width=70, height=25)
+                               width=17, height=6)
+            button['font'] = ('Helvetica', 34)
             button.grid(row=i // 3, column=i % 3, sticky=tk.NSEW)
 
     def show_first_screen():
         global current_screen
         current_screen = 1
         close_other_screens(current_screen)
+        root.deiconify()
         pass
     
     def timer():
@@ -447,6 +550,8 @@ with mp_face_mesh.FaceMesh(
     root.update_idletasks()
     button_frame.place(in_=root, anchor="c", relx=.5, rely=.5)
     root.update_idletasks()
+    
+    root.attributes("-fullscreen", True)
 
     update_direction()
     root.mainloop()
