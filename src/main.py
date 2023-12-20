@@ -27,10 +27,9 @@ with mp_face_mesh.FaceMesh(
         cap.release()
         cv.destroyAllWindows()
 
-    # Configurando a janela para ocupar toda a tela
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
-    root.geometry(f"{screen_width}x{screen_height}+0+0")  # Define a largura e altura da janela e posição inicial (0, 0)
+    root.geometry(f"{screen_width}x{screen_height}+0+0")
 
     root.title("Direção do Olhar")
 
@@ -46,7 +45,6 @@ with mp_face_mesh.FaceMesh(
     bottom_frame.columnconfigure(0, weight=5)
     bottom_frame.columnconfigure(1, weight=0)
 
-    # Adiciona os botões iniciais
     buttons = ['A', 'B', 'C', 'D', 'E', '->']
     button_frame = tk.Frame(root)
     button_frame.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
@@ -68,7 +66,6 @@ with mp_face_mesh.FaceMesh(
         global current_screen, shared_text
         current_entry_field = get_current_entry_field(current_screen)
         if button_text == '->':
-            print("passar")
             show_next_screen(current_screen)
         else:
             shared_text += button_text
@@ -126,10 +123,10 @@ with mp_face_mesh.FaceMesh(
             button['font'] = ('Helvetica', 34)
             button.grid(row=i // 3, column=i % 3, sticky=tk.NSEW)
             
-        for i in range(3):  # Number of columns
+        for i in range(3):
             new_button_frame.grid_columnconfigure(i, weight=1)
 
-        for i in range((len(new_buttons) + 2) // 3):  # Number of rows
+        for i in range((len(new_buttons) + 2) // 3):
             new_button_frame.grid_rowconfigure(i, weight=1)
             
     def show_third_screen():
@@ -160,10 +157,10 @@ with mp_face_mesh.FaceMesh(
             button['font'] = ('Helvetica', 34)
             button.grid(row=i // 3, column=i % 3, sticky=tk.NSEW)
             
-        for i in range(3):  # Number of columns
+        for i in range(3):
             new_button_frame.grid_columnconfigure(i, weight=1)
 
-        for i in range((len(new_buttons) + 2) // 3):  # Number of rows
+        for i in range((len(new_buttons) + 2) // 3):
             new_button_frame.grid_rowconfigure(i, weight=1)
             
     def show_fourth_screen():
@@ -194,10 +191,10 @@ with mp_face_mesh.FaceMesh(
             button['font'] = ('Helvetica', 34)
             button.grid(row=i // 3, column=i % 3, sticky=tk.NSEW)
             
-        for i in range(3):  # Number of columns
+        for i in range(3):
             new_button_frame.grid_columnconfigure(i, weight=1)
 
-        for i in range((len(new_buttons) + 2) // 3):  # Number of rows
+        for i in range((len(new_buttons) + 2) // 3):
             new_button_frame.grid_rowconfigure(i, weight=1)
             
     def show_5_screen():
@@ -228,10 +225,10 @@ with mp_face_mesh.FaceMesh(
             button['font'] = ('Helvetica', 34)
             button.grid(row=i // 3, column=i % 3, sticky=tk.NSEW)
             
-        for i in range(3):  # Number of columns
+        for i in range(3):
             new_button_frame.grid_columnconfigure(i, weight=1)
 
-        for i in range((len(new_buttons) + 2) // 3):  # Number of rows
+        for i in range((len(new_buttons) + 2) // 3):
             new_button_frame.grid_rowconfigure(i, weight=1)
             
     def show_6_screen():
@@ -262,10 +259,10 @@ with mp_face_mesh.FaceMesh(
             button['font'] = ('Helvetica', 34)
             button.grid(row=i // 3, column=i % 3, sticky=tk.NSEW)
             
-        for i in range(3):  # Number of columns
+        for i in range(3):
             new_button_frame.grid_columnconfigure(i, weight=1)
 
-        for i in range((len(new_buttons) + 2) // 3):  # Number of rows
+        for i in range((len(new_buttons) + 2) // 3):
             new_button_frame.grid_rowconfigure(i, weight=1)
 
     def show_first_screen():
@@ -500,10 +497,7 @@ with mp_face_mesh.FaceMesh(
                 elapsed_time = time.time() - start_time
                 if elapsed_time >= 3:
                     on_button_click('Z')
-                    break
-                
-
-        
+                    break     
             
     def show_next_screen(current_screen):
         if current_screen==1:
@@ -588,7 +582,6 @@ with mp_face_mesh.FaceMesh(
 
         root.after(100, update_direction)
 
-    # Centraliza o frame do botão
     root.update_idletasks()
     button_frame.place(in_=root, anchor="c", relx=.5, rely=.5)
     root.update_idletasks()
