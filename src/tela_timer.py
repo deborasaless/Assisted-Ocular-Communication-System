@@ -257,207 +257,209 @@ with mp_face_mesh.FaceMesh(
         root.deiconify()
         pass
     
-    def timer():
-        tempo_inicial = time.time()
+    # def timer():
+    #     tempo_inicial = time.time()
 
-        def time_count():
-            return time.time() - tempo_inicial
+    #     def time_count():
+    #         return time.time() - tempo_inicial
         
-        if time_count() > 3:
-            return 1
-        else:
-            return 0
+    #     if time_count() > 3:
+    #         return 1
+    #     else:
+    #         return 0
+    
+    time=1
 
     def on_button_text(button_text):
         if button_text == '1' and current_screen==1:
             while button_text == '1' and current_screen==1:
-                time=timer()
+
                 if time == 1:
                     on_button_click('A')
                     
         elif button_text == '2' and current_screen==1:
             while button_text == '2' and current_screen==1:
-                time=timer()
+
                 if time == 1:
                     on_button_click('B')
                     
         elif button_text == '3' and current_screen==1:
             while button_text == '3' and current_screen==1:
-                time=timer()
+
                 if time == 1:
                     on_button_click('C')
                     
         elif button_text == '4' and current_screen==1:
             while button_text == '4' and current_screen==1:
-                time=timer()
+
                 if time == 1:
                     on_button_click('D')
 
         elif button_text == '5' and current_screen==1:
             while button_text == '5' and current_screen==1:
-                time=timer()
+
                 if time == 1:
                     on_button_click('E')
                     
             
         if button_text == '6':
             while button_text == '6':
-                time=timer()
+
                 if time == 1:
                     show_next_screen(current_screen)
 
             
         elif button_text == '1' and current_screen==2:
             while button_text == '1' and current_screen==2:
-                time=timer()
+
                 if time == 1:
                     on_button_click('F')
             
         elif button_text == '2' and current_screen==2:
             while button_text == '2' and current_screen==2:
-                time=timer()
+
                 if time == 1:
                     on_button_click('G')
             
         elif button_text == '3' and current_screen==2:
             while button_text == '3' and current_screen==2:
-                time=timer()
+
                 if time == 1:
                     on_button_click('H')
             
         elif button_text == '4' and current_screen==2:
             while button_text == '4' and current_screen==2:
-                time=timer()
+
                 if time == 1:
                     on_button_click('I')
             
         elif button_text == '5' and current_screen==2:
             while button_text == '5' and current_screen==2:
-                time=timer()
+
                 if time == 1:
                     on_button_click('J')
             
             
         elif button_text == '1' and current_screen==3:
             while button_text == '1' and current_screen==3:
-                time=timer()
+
                 if time == 1:
                     on_button_click('K')
             
         elif button_text == '2' and current_screen==3:
             while button_text == '2' and current_screen==3:
-                time=timer()
+
                 if time == 1:
                     on_button_click('L')
             
         elif button_text == '3' and current_screen==3:
             while button_text == '3' and current_screen==3:
-                time=timer()
+
                 if time == 1:
                     on_button_click('M')
             
         elif button_text == '4' and current_screen==3:
             while button_text == '4' and current_screen==3:
-                time=timer()
+
                 if time == 1:
                     on_button_click('N')
             
         elif button_text == '5' and current_screen==3:
             while button_text == '5' and current_screen==3:
-                time=timer()
+
                 if time == 1:
                     on_button_click('O')
             
             
         elif button_text == '1' and current_screen==4:
             while button_text == '1' and current_screen==4:
-                time=timer()
+
                 if time == 1:
                     on_button_click('P')
             
         elif button_text == '2' and current_screen==4:
             while button_text == '2' and current_screen==4:
-                time=timer()
+
                 if time == 1:
                     on_button_click('Q')
             
         elif button_text == '3' and current_screen==4:
             while button_text == '3' and current_screen==4:
-                time=timer()
+
                 if time == 1:
                     on_button_click('R')
             
         elif button_text == '4' and current_screen==4:
             while button_text == '4' and current_screen==4:
-                time=timer()
+
                 if time == 1:
                     on_button_click('S')
             
         elif button_text == '5' and current_screen==4:
             while button_text == '5' and current_screen==4:
-                time=timer()
+
                 if time == 1:
                     on_button_click('T')
             
             
         elif button_text == '1' and current_screen==5:
             while button_text == '1' and current_screen==5:
-                time=timer()
+
                 if time == 1:
                     on_button_click('U')
             
         elif button_text == '2' and current_screen==5:
             while button_text == '2' and current_screen==5:
-                time=timer()
+
                 if time == 1:
                     on_button_click('V')
             
         elif button_text == '3' and current_screen==5:
             while button_text == '3' and current_screen==5:
-                time=timer()
+
                 if time == 1:
                     on_button_click('W')
             
         elif button_text == '4' and current_screen==5:
             while button_text == '4' and current_screen==5:
-                time=timer()
+
                 if time == 1:
                     on_button_click('X')
             
         elif button_text == '5' and current_screen==5:
             while button_text == '5' and current_screen==5:
-                time=timer()
+
                 if time == 1:
                     on_button_click('Y')
             
             
         elif button_text == '1' and current_screen==6:
             while button_text == '1' and current_screen==6:
-                time=timer()
+
                 if time == 1:
                     on_button_click('Z')
             
         elif button_text == '2' and current_screen==6:
             while button_text == '2' and current_screen==6:
-                time=timer()
+
                 if time == 1:
                     on_button_click('Z')
             
         elif button_text == '3' and current_screen==6:
             while button_text == '3' and current_screen==6:
-                time=timer()
+
                 if time == 1:
                     on_button_click('Z')
             
         elif button_text == '4' and current_screen==6:
             while button_text == '4' and current_screen==6:
-                time=timer()
+
                 if time == 1:
                     on_button_click('Z')
             
         elif button_text == '5' and current_screen==6:
             while button_text == '5' and current_screen==6:
-                time=timer()
+
                 if time == 1:
                     on_button_click('Z')
             

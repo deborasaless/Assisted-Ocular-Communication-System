@@ -50,16 +50,25 @@ with mp_face_mesh.FaceMesh(
     def on_button_click(button_text):
         global current_screen
         if button_text == '->':
-            show_second_screen()
+            print("passar")
+            show_next_screen(current_screen)
         else:
             entry_field.insert(tk.END, button_text)
+            
+    def close_other_screens(current_screen):
+        for win in root.winfo_children():
+            if isinstance(win, tk.Toplevel) and win != current_screen:
+                win.destroy()   
 
     def show_second_screen():
         global current_screen
         current_screen = 2
-        # Cria uma nova tela com os botões F, G, H, I, J, ->
+        root.withdraw()
+        close_other_screens(current_screen)
         second_screen = tk.Toplevel(root)
         second_screen.title("Segunda Tela")
+        
+        second_screen.attributes("-fullscreen", True)
 
         new_buttons = ['F', 'G', 'H', 'I', 'J', '->']
         new_button_frame = tk.Frame(second_screen)
@@ -67,82 +76,91 @@ with mp_face_mesh.FaceMesh(
 
         for i, button_text in enumerate(new_buttons):
             button = tk.Button(new_button_frame, text=button_text,
-                               command=lambda text=button_text: on_button_click(text, second_screen),
+                               command=lambda text=button_text: on_button_click(text),
                                width=70, height=25)  # Ajusta a largura e altura do botão
             button.grid(row=i // 3, column=i % 3, sticky=tk.NSEW)
             
     def show_third_screen():
         global current_screen
         current_screen = 3
-        # Cria uma nova tela com os botões F, G, H, I, J, ->
-        second_screen = tk.Toplevel(root)
-        second_screen.title("Segunda Tela")
+        close_other_screens(current_screen)
+        third_screen = tk.Toplevel(root)
+        third_screen.title("Terceira Tela")
+        
+        third_screen.attributes("-fullscreen", True)
 
         new_buttons = ['K', 'L', 'M', 'N', 'O', '->']
-        new_button_frame = tk.Frame(second_screen)
+        new_button_frame = tk.Frame(third_screen)
         new_button_frame.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
         for i, button_text in enumerate(new_buttons):
             button = tk.Button(new_button_frame, text=button_text,
-                               command=lambda text=button_text: on_button_click(text, second_screen),
+                               command=lambda text=button_text: on_button_click(text),
                                width=70, height=25)  # Ajusta a largura e altura do botão
             button.grid(row=i // 3, column=i % 3, sticky=tk.NSEW)
             
     def show_fourth_screen():
         global current_screen
         current_screen = 4
-        # Cria uma nova tela com os botões F, G, H, I, J, ->
-        second_screen = tk.Toplevel(root)
-        second_screen.title("Segunda Tela")
+        close_other_screens(current_screen)
+        fourth_screen = tk.Toplevel(root)
+        fourth_screen.title("Quarta Tela")
+        
+        fourth_screen.attributes("-fullscreen", True)
 
         new_buttons = ['P', 'Q', 'R', 'S', 'T', '->']
-        new_button_frame = tk.Frame(second_screen)
+        new_button_frame = tk.Frame(fourth_screen)
         new_button_frame.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
         for i, button_text in enumerate(new_buttons):
             button = tk.Button(new_button_frame, text=button_text,
-                               command=lambda text=button_text: on_button_click(text, second_screen),
+                               command=lambda text=button_text: on_button_click(text),
                                width=70, height=25)  # Ajusta a largura e altura do botão
             button.grid(row=i // 3, column=i % 3, sticky=tk.NSEW)
             
     def show_5_screen():
         global current_screen
         current_screen = 5
-        # Cria uma nova tela com os botões F, G, H, I, J, ->
-        second_screen = tk.Toplevel(root)
-        second_screen.title("Segunda Tela")
+        close_other_screens(current_screen)
+        fifth_screen = tk.Toplevel(root)
+        fifth_screen.title("Quinta Tela")
+        
+        fifth_screen.attributes("-fullscreen", True)
 
         new_buttons = ['U', 'V', 'W', 'X', 'Y', '->']
-        new_button_frame = tk.Frame(second_screen)
+        new_button_frame = tk.Frame(fifth_screen)
         new_button_frame.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
         for i, button_text in enumerate(new_buttons):
             button = tk.Button(new_button_frame, text=button_text,
-                               command=lambda text=button_text: on_button_click(text, second_screen),
+                               command=lambda text=button_text: on_button_click(text),
                                width=70, height=25)  # Ajusta a largura e altura do botão
             button.grid(row=i // 3, column=i % 3, sticky=tk.NSEW)
             
     def show_6_screen():
         global current_screen
         current_screen = 6
-        # Cria uma nova tela com os botões F, G, H, I, J, ->
-        second_screen = tk.Toplevel(root)
-        second_screen.title("Segunda Tela")
+        close_other_screens(current_screen)
+        sixth_screen = tk.Toplevel(root)
+        sixth_screen.title("Sexta Tela")
+        
+        sixth_screen.attributes("-fullscreen", True)
 
         new_buttons = ['Z', 'Z', 'Z', 'Z', 'Z', '->']
-        new_button_frame = tk.Frame(second_screen)
+        new_button_frame = tk.Frame(sixth_screen)
         new_button_frame.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
         for i, button_text in enumerate(new_buttons):
             button = tk.Button(new_button_frame, text=button_text,
-                               command=lambda text=button_text: on_button_click(text, second_screen),
+                               command=lambda text=button_text: on_button_click(text),
                                width=70, height=25)  # Ajusta a largura e altura do botão
             button.grid(row=i // 3, column=i % 3, sticky=tk.NSEW)
 
     def show_first_screen():
         global current_screen
         current_screen = 1
-        # Lógica para a primeira tela
+        close_other_screens(current_screen)
+        root.deiconify()
         pass
 
     def on_button_text(button_text):
@@ -156,8 +174,9 @@ with mp_face_mesh.FaceMesh(
             on_button_click('D')
         elif button_text == '5' and current_screen==1:
             on_button_click('E')
-        elif button_text == '6':
-            show_second_screen()
+            
+        if button_text == '6':
+            show_next_screen(current_screen)
             
         elif button_text == '1' and current_screen==2:
             on_button_click('F')
@@ -215,22 +234,21 @@ with mp_face_mesh.FaceMesh(
             on_button_click('Z')
             
     def show_next_screen(current_screen):
-        if current_screen=='1':
+        if current_screen==1:
             show_second_screen()
-        elif current_screen=='2':
+        elif current_screen==2:
             show_third_screen()
-        elif current_screen=='3':
+        elif current_screen==3:
             show_fourth_screen()
-        elif current_screen=='4':
+        elif current_screen==4:
             show_5_screen()
-        elif current_screen=='5':
+        elif current_screen==5:
             show_6_screen()
-        elif current_screen=='6':
+        elif current_screen==6:
             show_first_screen()
 
     def update_direction():
         global current_screen
-        print(f"Está na Tela: {current_screen}")
         ret, frame = cap.read()
 
         if not ret:
@@ -302,6 +320,8 @@ with mp_face_mesh.FaceMesh(
     root.update_idletasks()
     button_frame.place(in_=root, anchor="c", relx=.5, rely=.5)
     root.update_idletasks()
+    
+    root.attributes("-fullscreen", True)
 
     update_direction()
     root.mainloop()
