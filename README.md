@@ -20,7 +20,7 @@ Vale ressaltar também que recomenda-se um editor de código para visualizar e e
 
 ### 2. Do clone do repositório:
 
-    https://github.com/deborasaless/desafio-IA-LAPISCO.git
+    git clone https://github.com/deborasaless/Assisted-Ocular-Communication-System.git
 
 ### 3. Da criação e da ativação da env:
 
@@ -47,9 +47,9 @@ ou
 
 ### 5. Rodar o projeto:
 
-    python main.py
+    python src/tela.py
 
 ou
 
-    python3 main.py
+    python3 src/tela.py
 
